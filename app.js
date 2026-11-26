@@ -61,45 +61,59 @@
       edges: [['r', 'site'], ['site', 'app'], ['e', 'adm'], ['adm', 'app'], ['app', 'db'], ['app', 'md'], ['xl', 'imp'], ['imp', 'db'], ['rss', 'db', 1]] },
   ];
 
+  // На телефоне схема поворачивается: поток идёт сверху вниз и помещается по ширине без прокрутки.
+  const mq = matchMedia('(max-width: 720px)'); let mob = mq.matches;
+  const wrap = (s, max) => { if (!s || s.length <= max) return s ? [s] : []; const parts = s.includes(' · ') ? s.split(' · ') : s.split(' '), sep = s.includes(' · ') ? ' · ' : ' '; let l1 = parts[0], i = 1; while (i < parts.length && (l1 + sep + parts[i]).length <= max) l1 += sep + parts[i++]; return i < parts.length ? [l1, parts.slice(i).join(sep)] : [l1]; };
   function diagram(a) {
-    const cw = 152, chh = 92, nw = 140, nh = 52, W = 4 * cw + nw + 24, H = 2 * chh + nh + 28;
-    const pos = {}; a.nodes.forEach(o => pos[o.id] = [12 + o.x * cw + nw / 2, 14 + o.y * chh + nh / 2]);
+    const M = mob, cw = M ? 118 : 152, chh = M ? 88 : 92, nw = M ? 110 : 140, nh = M ? 62 : 52, cols = M ? 3 : 5, rows = M ? 5 : 3, padX = M ? 4 : 12;
+    const W = (cols - 1) * cw + nw + padX * 2, H = (rows - 1) * chh + nh + 28;
+    const pos = {}; a.nodes.forEach(o => { const gx = M ? o.y : o.x, gy = M ? o.x : o.y; pos[o.id] = [padX + gx * cw + nw / 2, 14 + gy * chh + nh / 2]; });
     const ed = a.edges.map(([f, t, dash], i) => { const [x1, y1] = pos[f], [x2, y2] = pos[t];
       return `<path id="ed${i}" class="ed${dash ? ' dash' : ''}" d="M${x1} ${y1}L${x2} ${y2}"/>` + (reduce ? '' : `<circle r="3" class="pk"><animateMotion dur="${(3.2 + (i % 3) * .9).toFixed(1)}s" begin="${(i * .45).toFixed(2)}s" repeatCount="indefinite"><mpath href="#ed${i}"/></animateMotion></circle>`); }).join('');
-    const nd = a.nodes.map(o => { const [cx, cy] = pos[o.id], sub = tx(o.sub);
-      return `<g class="k-${o.k}"><rect x="${cx - nw / 2}" y="${cy - nh / 2}" width="${nw}" height="${nh}" rx="8"/><text class="nl" x="${cx}" y="${cy + (sub ? -3 : 4)}" text-anchor="middle">${esc(tx(o.label))}</text>${sub ? `<text class="ns" x="${cx}" y="${cy + 13}" text-anchor="middle">${esc(sub)}</text>` : ''}</g>`; }).join('');
+    const nd = a.nodes.map(o => { const [cx, cy] = pos[o.id], ls = M ? wrap(tx(o.label), 15) : [tx(o.label)], ss = M ? wrap(tx(o.sub), 17) : (tx(o.sub) ? [tx(o.sub)] : []);
+      const lh = M ? 13.5 : 15, sh = M ? 11.5 : 13, total = ls.length * lh + ss.length * sh; let y = cy - total / 2 + lh * .78;
+      const t1 = ls.map(l => { const r = `<text class="nl" x="${cx}" y="${y.toFixed(1)}" text-anchor="middle">${esc(l)}</text>`; y += lh; return r; }).join(''); y += sh - lh + 1;
+      const t2 = ss.map(l => { const r = `<text class="ns" x="${cx}" y="${y.toFixed(1)}" text-anchor="middle">${esc(l)}</text>`; y += sh; return r; }).join('');
+      return `<g class="k-${o.k}"><rect x="${cx - nw / 2}" y="${cy - nh / 2}" width="${nw}" height="${nh}" rx="8"/>${t1}${t2}</g>`; }).join('');
     const lg = [['client', T('клиент', 'client')], ['service', T('сервис', 'service')], ['data', T('данные', 'data')], ['infra', T('инфраструктура', 'infrastructure')], ['ext', T('внешняя система', 'external')]]
       .filter(([k]) => a.nodes.some(o => o.k === k)).map(([k, l]) => `<span><i class="l-${k}"></i>${l}</span>`).join('');
-    return `<div class="dia"><div class="cap"><span>${T('схема', 'architecture')} <span class="hint">${T('· листайте вбок →', '· swipe sideways →')}</span></span><span>${esc(tx(a.foot))}</span></div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${T('Схема архитектуры', 'Architecture diagram')}">${ed}${nd}</svg><div class="foot">${lg}</div></div>`;
+    return `<div class="dia"><div class="cap"><span>${T('схема', 'architecture')}</span><span>${esc(tx(a.foot))}</span></div><svg class="${M ? 'mob' : ''}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${T('Схема архитектуры', 'Architecture diagram')}">${ed}${nd}</svg><div class="foot">${lg}</div></div>`;
   }
 
   // --- карта «проекты ↔ технологии»
   function graph() {
-    const S = 700, c = S / 2, rP = 132, rT = 236, techs = [];
+    const S = mob ? 520 : 700, c = S / 2, rP = mob ? 128 : 132, rT = mob ? 236 : 236, techs = [];
     PROJECTS.forEach(p => p.t.forEach(t => { if (!techs.includes(t)) techs.push(t); }));
     const pp = PROJECTS.map((p, i) => { const a = i / PROJECTS.length * Math.PI * 2 - Math.PI / 2; return [c + Math.cos(a) * rP, c + Math.sin(a) * rP]; });
     const tp = techs.map((t, i) => { const a = i / techs.length * Math.PI * 2 - Math.PI / 2; return [c + Math.cos(a) * rT, c + Math.sin(a) * rT, a]; });
     let e = '';
     PROJECTS.forEach((p, i) => p.t.forEach(t => { const j = techs.indexOf(t), [x1, y1] = pp[i], [x2, y2] = tp[j]; e += `<path class="e" data-p="${i}" data-t="${j}" d="M${x1.toFixed(1)} ${y1.toFixed(1)}Q${((x1 + x2) / 2 + (c - (x1 + x2) / 2) * .35).toFixed(1)} ${((y1 + y2) / 2 + (c - (y1 + y2) / 2) * .35).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; }));
     const pn = PROJECTS.map((p, i) => `<g class="n p" data-p="${i}" tabindex="0" role="button" aria-label="${esc(tx(p.n))}"><circle cx="${pp[i][0].toFixed(1)}" cy="${pp[i][1].toFixed(1)}" r="12" fill="transparent"/><circle cx="${pp[i][0].toFixed(1)}" cy="${pp[i][1].toFixed(1)}" r="6" class="s-${p.s}"/></g>`).join('');
-    const tn = techs.map((t, j) => { const [x, y, a] = tp[j], deg = a * 180 / Math.PI, flip = Math.cos(a) < 0; return `<g class="n t" data-t="${j}" tabindex="0" role="button" aria-label="${esc(t)}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.2"/><text transform="translate(${(c + Math.cos(a) * (rT + 10)).toFixed(1)} ${(c + Math.sin(a) * (rT + 10)).toFixed(1)}) rotate(${(flip ? deg + 180 : deg).toFixed(1)})" text-anchor="${flip ? 'end' : 'start'}" dominant-baseline="middle">${esc(t)}</text></g>`; }).join('');
+    const tn = techs.map((t, j) => { const [x, y, a] = tp[j], deg = a * 180 / Math.PI, flip = Math.cos(a) < 0; return `<g class="n t" data-t="${j}" tabindex="0" role="button" aria-label="${esc(t)}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${mob ? 13 : 9}" fill="transparent" style="fill:transparent"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${mob ? 5 : 3.2}"/>${mob ? '' : `<text transform="translate(${(c + Math.cos(a) * (rT + 10)).toFixed(1)} ${(c + Math.sin(a) * (rT + 10)).toFixed(1)}) rotate(${(flip ? deg + 180 : deg).toFixed(1)})" text-anchor="${flip ? 'end' : 'start'}" dominant-baseline="middle">${esc(t)}</text>`}</g>`; }).join('');
     const d1 = T(`${PROJECTS.length} проектов`, `${PROJECTS.length} projects`), d2 = T(`${techs.length} технологий`, `${techs.length} technologies`);
     $('graph').innerHTML = `<svg viewBox="0 0 ${S} ${S}" role="group" aria-label="${T('Карта проектов и технологий', 'Map of projects and technologies')}">${e}${pn}${tn}<text class="c1" id="gc1" x="${c}" y="${c - 4}" text-anchor="middle">${d1}</text><text class="c2" id="gc2" x="${c}" y="${c + 16}" text-anchor="middle">${d2}</text></svg>`;
+    if (mob) $('graph').insertAdjacentHTML('beforeend', `<div class="ginfo" id="ginfo"></div>`);
+    const hint = `<p class="gh0">${T('Нажмите на точку: внутри проекты, снаружи технологии', 'Tap a dot: projects inside, technologies outside')}</p>`, gi = () => $('ginfo');
+    if (mob) gi().innerHTML = hint;
+    let cur = null;
     $('legend').innerHTML = SORD.filter(s => s !== 'rnd').map(s => `<span class="st ${s}"><i></i>${esc(tx(STATUS[s]))}</span>`).join('');
     const box = $('map'), svg = box.querySelector('svg');
-    const clear = () => { box.classList.remove('hov'); svg.querySelectorAll('.on,.sel').forEach(x => x.classList.remove('on', 'sel')); $('gc1').textContent = d1; $('gc2').textContent = d2; };
+    const clear = () => { box.classList.remove('hov'); svg.querySelectorAll('.on,.sel').forEach(x => x.classList.remove('on', 'sel')); $('gc1').textContent = d1; $('gc2').textContent = d2; cur = null; if (mob && gi()) gi().innerHTML = hint; };
     const show = g => {
-      clear(); box.classList.add('hov'); g.classList.add('on');
-      if (g.dataset.p != null) { const i = +g.dataset.p, p = PROJECTS[i]; svg.querySelectorAll(`.e[data-p="${i}"]`).forEach(x => { x.classList.add('on'); svg.querySelector(`.t[data-t="${x.dataset.t}"]`).classList.add('on'); }); $('gc1').textContent = tx(p.n); $('gc2').textContent = `${p.y} · ${tx(STATUS[p.s])}`; }
-      else { const j = +g.dataset.t; let k = 0; svg.querySelectorAll(`.e[data-t="${j}"]`).forEach(x => { x.classList.add('on'); svg.querySelector(`.p[data-p="${x.dataset.p}"]`).classList.add('on'); k++; }); $('gc1').textContent = techs[j]; $('gc2').textContent = T(`проектов: ${k}`, `projects: ${k}`); }
+      clear(); box.classList.add('hov'); g.classList.add('on'); cur = g;
+      if (g.dataset.p != null) { const i = +g.dataset.p, p = PROJECTS[i]; svg.querySelectorAll(`.e[data-p="${i}"]`).forEach(x => { x.classList.add('on'); svg.querySelector(`.t[data-t="${x.dataset.t}"]`).classList.add('on'); }); $('gc1').textContent = tx(p.n); $('gc2').textContent = `${p.y} · ${tx(STATUS[p.s])}`;
+        if (mob) gi().innerHTML = `<h3>${esc(tx(p.n))}</h3><p><span class="st ${p.s}"><i></i>${esc(tx(STATUS[p.s]))}</span> · ${p.y}</p><p>${esc(tx(p.d))}</p><div class="tags">${p.t.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div><button type="button" class="btn">${T('Показать в таблице', 'Show in the table')}</button>`; }
+      else { const j = +g.dataset.t; let k = 0; svg.querySelectorAll(`.e[data-t="${j}"]`).forEach(x => { x.classList.add('on'); svg.querySelector(`.p[data-p="${x.dataset.p}"]`).classList.add('on'); k++; }); $('gc1').textContent = techs[j]; $('gc2').textContent = T(`проектов: ${k}`, `projects: ${k}`);
+        if (mob) gi().innerHTML = `<h3>${esc(techs[j])}</h3><p>${T('Используется в проектах:', 'Used in:')}</p><div class="tags">${PROJECTS.filter(p => p.t.includes(techs[j])).map(p => `<span class="tag">${esc(tx(p.n))}</span>`).join('')}</div><button type="button" class="btn">${T('Отфильтровать таблицу', 'Filter the table')}</button>`; }
     };
     const act = g => { if (g.dataset.p != null) jump(+g.dataset.p); else { cat = 'all'; query = techs[+g.dataset.t]; $('q').value = query; table(); $('all').scrollIntoView(); } };
     svg.addEventListener('pointerover', e => { if (touch) return; const g = e.target.closest('.n'); if (g) show(g); });
     svg.addEventListener('pointerleave', () => { if (!touch) clear(); });
     svg.addEventListener('focusin', e => { const g = e.target.closest('.n'); if (g) show(g); });
-    svg.addEventListener('focusout', clear);
+    svg.addEventListener('focusout', () => { if (!mob) clear(); });
+    if (mob) gi().addEventListener('click', e => { if (e.target.closest('button') && cur) act(cur); });
     const touch = matchMedia('(hover: none)').matches;
-    svg.addEventListener('click', e => { const g = e.target.closest('.n'); if (!g) { clear(); return; } if (touch && !g.classList.contains('sel')) { svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); show(g); g.classList.add('sel'); $('gc2').textContent += T(' · нажмите ещё раз', ' · tap again'); } else act(g); });
+    svg.addEventListener('click', e => { const g = e.target.closest('.n'); if (!g) { clear(); return; } if (mob) { show(g); return; } if (touch && !g.classList.contains('sel')) { svg.querySelectorAll('.sel').forEach(x => x.classList.remove('sel')); show(g); g.classList.add('sel'); $('gc2').textContent += T(' · нажмите ещё раз', ' · tap again'); } else act(g); });
     svg.addEventListener('keydown', e => { const g = e.target.closest('.n'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); act(g); } });
   }
 
@@ -216,6 +230,7 @@
     const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.removeAttribute('aria-current')); map[e.target.id].setAttribute('aria-current', 'true'); } }), { rootMargin: '-30% 0px -60% 0px' });
     Object.keys(map).forEach(id => $(id) && so.observe($(id))); }
 
+  mq.addEventListener('change', e => { mob = e.matches; graph(); systems(); });
   window.__applyTheme = applyTheme;
   render();
 })();
