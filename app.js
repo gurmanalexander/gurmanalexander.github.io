@@ -52,6 +52,13 @@
         n('my', 3, 0, 'data', 'MySQL', ''), n('rd', 3, 1, 'data', 'Redis', L('кэш, очереди', 'cache, queues')), n('fc', 3, 2, 'ext', 'Push', 'Firebase FCM'),
         n('bk', 4, 0, 'infra', L('Бэкапы', 'Backups'), 'DO Spaces')],
       edges: [['web', 'api'], ['app', 'lo'], ['lo', 'api'], ['adm', 'my'], ['api', 'my'], ['api', 'rd'], ['api', 'fc'], ['my', 'bk'], ['ci', 'api', 1]] },
+    { foot: L('Docker Compose · видимость каждого материала по языкам', 'Docker Compose · per-language visibility for every article'),
+      nodes: [n('r', 0, 0, 'client', L('Читатель', 'Reader'), L('несколько языков', 'several languages')), n('e', 0, 2, 'client', L('Редактор', 'Editor'), ''),
+        n('site', 1, 0, 'service', L('Сайт', 'Website'), 'Inertia · Vue 3'), n('adm', 1, 2, 'service', L('Админка', 'Admin'), 'Filament'),
+        n('app', 2, 1, 'service', L('Приложение', 'Application'), 'Laravel 11'), n('imp', 3, 0, 'service', L('Импорт архива', 'Archive import'), L('консольные команды', 'console commands')),
+        n('db', 3, 1, 'data', L('База данных', 'Database'), 'SQL'), n('md', 3, 2, 'data', L('Медиафайлы', 'Media files'), ''),
+        n('xl', 4, 0, 'ext', 'Excel', L('прежние материалы', 'legacy content')), n('rss', 4, 1, 'ext', 'RSS', L('лента новостей', 'news feed'))],
+      edges: [['r', 'site'], ['site', 'app'], ['e', 'adm'], ['adm', 'app'], ['app', 'db'], ['app', 'md'], ['xl', 'imp'], ['imp', 'db'], ['rss', 'db', 1]] },
   ];
 
   function diagram(a) {
@@ -118,9 +125,9 @@
 
   function systems() {
     $('sysn').textContent = `${sysI + 1} / ${FEATURED.length}`;
-    $('tabs').innerHTML = FEATURED.map((f, i) => `<button type="button" role="tab" id="tab-${i}" data-i="${i}" aria-selected="${i === sysI}" aria-controls="det" tabindex="${i === sysI ? 0 : -1}"><b>${esc(tx(f.name))}</b><span>${esc(f.metric.n)} · ${esc(tx(f.metric.label))}</span></button>`).join('');
+    $('tabs').innerHTML = FEATURED.map((f, i) => `<button type="button" role="tab" id="tab-${i}" data-i="${i}" aria-selected="${i === sysI}" aria-controls="det" tabindex="${i === sysI ? 0 : -1}"><b>${esc(tx(f.name))}</b><span>${esc(tx(f.metric.n))} · ${esc(tx(f.metric.label))}</span></button>`).join('');
     const f = FEATURED[sysI];
-    $('det').innerHTML = `<div class="top2"><div><div class="kind">${esc(tx(f.kind))}</div><h3>${esc(tx(f.name))}</h3><p class="ld">${esc(tx(f.lead))}</p></div><div class="met"><div class="n">${esc(f.metric.n)}</div><p>${esc(tx(f.metric.label))}</p></div></div><ul>${f.points.map(p => `<li>${esc(tx(p))}</li>`).join('')}</ul><div class="tags">${f.stack.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>${f.links ? `<div class="links">${f.links.map((l, j) => `<a class="btn${j ? '' : ' pri'}" href="${l.href}" target="_blank" rel="noopener">${esc(tx(l.label))} ↗</a>`).join('')}</div>` : ''}${diagram(ARCH[sysI])}`;
+    $('det').innerHTML = `<div class="top2"><div><div class="kind">${esc(tx(f.kind))}</div><h3>${esc(tx(f.name))}</h3><p class="ld">${esc(tx(f.lead))}</p></div><div class="met"><div class="n">${esc(tx(f.metric.n))}</div><p>${esc(tx(f.metric.label))}</p></div></div><ul>${f.points.map(p => `<li>${esc(tx(p))}</li>`).join('')}</ul><div class="tags">${f.stack.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>${f.links ? `<div class="links">${f.links.map((l, j) => `<a class="btn${j ? '' : ' pri'}" href="${l.href}" target="_blank" rel="noopener">${esc(tx(l.label))} ↗</a>`).join('')}</div>` : ''}${diagram(ARCH[sysI])}`;
   }
 
   function render() {

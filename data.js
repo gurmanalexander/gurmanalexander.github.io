@@ -182,6 +182,23 @@ const FEATURED = [
     stack: ["Laravel 12", "Filament", "React 19 SSR", "Flutter", "MySQL", "Redis", "Terraform", "GitHub Actions"],
     metric: { n: "~1 200", label: L("автотестов", "automated tests") },
   },
+  {
+    name: "demos.kz",
+    kind: L("Клиентский проект · в проде", "Client project · live"),
+    lead: L(
+      "Мультиязычный контент-портал: пресс-релизы, опросы с графиками, инфографика и раздел «СМИ о нас».",
+      "A multilingual content portal: press releases, polls with charts, infographics and a press-coverage section."
+    ),
+    points: [
+      L("Разработал в одиночку и сопровождаю почти два года", "Built solo and maintained for almost two years"),
+      L("Каждый материал можно показать или скрыть для отдельного языка", "Each article can be shown or hidden per language"),
+      L("Архив прежних материалов перенёс из Excel консольными командами", "Migrated the legacy archive from Excel with console commands"),
+      L("Редакция сама ведёт материалы и меню в админке", "Editors manage content and menus in the admin panel"),
+    ],
+    stack: ["Laravel 11", "Filament", "Inertia", "Vue 3", "Tailwind", "Docker"],
+    metric: { n: L("2 года", "2 yrs"), label: L("разработки и сопровождения", "of development and support") },
+    links: [{ label: L("Открыть demos.kz", "Open demos.kz"), href: "https://demos.kz" }],
+  },
 ];
 
 // status: live | ready | pilot | proto | rnd | done

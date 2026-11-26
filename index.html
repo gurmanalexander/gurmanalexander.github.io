@@ -55,10 +55,13 @@ html[data-lang=ru] .en,html[data-lang=en] .ru{display:none!important}
 
 /* верхняя панель */
 .top{position:sticky;top:0;z-index:40;background:var(--topbg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:22px;height:58px}
+.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
+.logo,.kbd,.lang,.clock{flex:none}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);white-space:nowrap}
 .logo i{width:26px;height:26px;border-radius:7px;background:var(--panel2);border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-style:normal;font-size:12px;color:var(--amber)}
-.top nav{display:flex;gap:4px;margin-left:8px}
+.top nav{display:flex;gap:2px;margin-left:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{flex:none}
 .top nav a{font-family:var(--mono);font-size:12.5px;color:var(--mute);padding:7px 10px;border-radius:7px}
 .top nav a:hover{color:var(--ink);background:var(--panel2)}
 .top nav a[aria-current=true]{color:var(--amber);background:var(--panel2)}
@@ -269,6 +272,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .term form{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid var(--line);color:var(--amber)}
 .term input{all:unset;flex:1;color:var(--ink);font-family:var(--mono);font-size:14px}
 
+@media (max-width:1380px){.clock{display:none}}
+@media (max-width:1240px){#themel{display:none}.kbd#openterm>span{display:none}}
 @media (max-width:1080px){
   .id{grid-column:span 4}.intro{grid-column:span 8}.map,.side{grid-column:span 12}
   .clock{display:none}
@@ -374,7 +379,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   </section>
 
   <section id="sys">
-    <div class="sec-h"><h2><span class="ru">Главные системы</span><span class="en">Key systems</span></h2><p class="h2sub"><span class="ru">Шесть продуктов, за которые я отвечал целиком. У каждого схема: из чего он состоит и как идут данные.</span><span class="en">Six products I owned end to end. Each has a diagram: what it is made of and how data flows.</span></p></div>
+    <div class="sec-h"><h2><span class="ru">Главные системы</span><span class="en">Key systems</span></h2><p class="h2sub"><span class="ru">Семь продуктов, за которые я отвечал целиком. У каждого схема: из чего он состоит и как идут данные.</span><span class="en">Seven products I owned end to end. Each has a diagram: what it is made of and how data flows.</span></p></div>
     <div class="panel"><div class="ph"><b>06</b>systems<span class="r" id="sysn"></span></div><div class="sys"><div class="tabs" id="tabs" role="tablist"></div><div class="det" id="det" role="tabpanel"></div></div></div>
   </section>
 
