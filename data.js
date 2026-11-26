@@ -62,8 +62,8 @@ const TIMELINE = [
     role: L("Соучредитель и CTO", "Co-founder & CTO"),
     place: L("Договор24", "Dogovor24"),
     text: L(
-      "Юридический SaaS и электронный документооборот. От первого коммита до платформы из 20+ сервисов и команды до 15 человек.",
-      "Legal SaaS and e-document workflow. From the first commit to a 20+ service platform and a team of up to 15."
+      "Юридический SaaS и электронный документооборот. От первого коммита до платформы из 20+ сервисов и команды до 15 человек. Сейчас соучредитель и консультант.",
+      "Legal SaaS and e-document workflow. From the first commit to a 20+ service platform and a team of up to 15. Now co-founder and advisor."
     ),
   },
   {
@@ -102,7 +102,7 @@ const FEATURED = [
   },
   {
     name: L("Договор24", "Dogovor24"),
-    kind: L("Соучредитель и CTO · 12 лет", "Co-founder & CTO · 12 years"),
+    kind: L("Соучредитель · 12 лет был CTO, сейчас консультант", "Co-founder · CTO for 12 years, now advisor"),
     lead: L(
       "Юридический SaaS и электронный документооборот для бизнеса Казахстана. В проде больше 10 лет.",
       "Legal SaaS and e-document workflow for businesses in Kazakhstan. In production for 10+ years."
@@ -154,7 +154,7 @@ const FEATURED = [
   },
   {
     name: "finance.kz",
-    kind: L("Владелец и технический руководитель", "Owner & technical lead"),
+    kind: "CTO",
     lead: L(
       "Финансовый маркетплейс: кредиты, банки, вход по электронной подписи. Принял проект с историей с 2017 года.",
       "A financial marketplace: loans, banks, digital-signature login. I took over a codebase dating back to 2017."
@@ -207,16 +207,16 @@ const STATUS = {
 
 const PROJECTS = [
   { n: "OpenRate", y: "2026", c: ["lead", "infra", "ai"], s: "live", d: L("Отзывы и лояльность для ресторанов. CTO: команда, архитектура, облако.", "Reviews and loyalty for restaurants. CTO: team, architecture, cloud."), t: ["NestJS", "PostgreSQL", "Kubernetes"] },
-  { n: L("Договор24", "Dogovor24"), y: "2014–2026", c: ["lead", "infra"], s: "live", d: L("Юридический SaaS и ЭДО. Соучредитель и CTO, платформа из 20+ сервисов.", "Legal SaaS and e-documents. Co-founder & CTO, a 20+ service platform."), t: ["Laravel", "RabbitMQ", "Kubernetes"] },
+  { n: L("Договор24", "Dogovor24"), y: "2014–2026", c: ["lead", "infra"], s: "live", d: L("Юридический SaaS и ЭДО. Соучредитель, 12 лет CTO, платформа из 20+ сервисов.", "Legal SaaS and e-documents. Co-founder, CTO for 12 years, a 20+ service platform."), t: ["Laravel", "RabbitMQ", "Kubernetes"] },
   { n: L("Видеоотчёты медиабордов", "Billboard video reports"), y: "2026", c: ["client", "ai", "product"], s: "live", d: L("Компьютерное зрение подтверждает показы рекламы на уличных экранах.", "Computer vision proves that ads were played on outdoor screens."), t: ["Python", "SAM 2", "OpenCV"] },
-  { n: "finance.kz", y: "2026", c: ["client", "infra"], s: "pilot", d: L("Финансовый маркетплейс: безопасность, апгрейд, переезд на новую инфраструктуру.", "Financial marketplace: security, upgrades, migration to new infrastructure."), t: ["Laravel 13", "Next.js 16", "Docker"] },
+  { n: "finance.kz", y: "2026", c: ["client", "infra"], s: "pilot", d: L("Финансовый маркетплейс. CTO: безопасность, апгрейд, переезд на новую инфраструктуру.", "Financial marketplace. CTO: security, upgrades, migration to new infrastructure."), t: ["Laravel 13", "Next.js 16", "Docker"] },
   { n: "tvx terminal", y: "2026", c: ["product", "quant"], s: "live", d: L("Открытый торговый терминал в браузере без бэкенда.", "An open-source in-browser trading terminal with no backend."), t: ["Vue 3", "TypeScript", "PWA"], href: "https://github.com/gurmanalexander/trading-platform" },
   { n: "Stride", y: "2025–2026", c: ["product"], s: "ready", d: L("Платформа обучающих материалов: сайт, админка, офлайн-приложение.", "Learning-content platform: website, admin, offline-first mobile app."), t: ["Laravel 12", "React 19", "Flutter"] },
   { n: L("TVX — торговый движок", "TVX — trading engine"), y: "2026", c: ["quant", "product"], s: "live", d: L("Одна стейт-машина для бэктеста и боя, исполнение на двух биржах, ~2 500 тестов.", "One state machine for backtest and live, execution on two exchanges, ~2,500 tests."), t: ["Python", "ccxt", "Docker"] },
   { n: "demos.kz", y: "2024–2026", c: ["client"], s: "live", d: L("Мультиязычный портал: пресс-релизы, опросы с графиками, инфографика.", "Multilingual portal: press releases, polls with charts, infographics."), t: ["Laravel 11", "Filament", "Vue 3"] },
   { n: L("Закрытая арт-витрина", "Private art showcase"), y: "2026", c: ["client"], s: "live", d: L("Доступ по приглашениям и персональные водяные знаки. В проде за 9 дней.", "Invite-only access and per-viewer watermarks. Live in 9 days."), t: ["Next.js 15", "Prisma", "PostgreSQL"] },
   { n: "Stillwaters", y: "2026", c: ["product", "ai"], s: "proto", d: L("Детективная игра, где жителей города отыгрывает языковая модель.", "A detective game where the townspeople are played by a language model."), t: ["TypeScript", "Claude API", "Three.js"] },
-  { n: "Volunteer Platform", y: "2026", c: ["product", "ai"], s: "proto", d: L("Мультитенантная платформа для волонтёров: 16 модулей и 310 E2E-тестов за неделю.", "Multi-tenant volunteer platform: 16 modules and 310 E2E tests in a week."), t: ["Laravel 12", "React", "Playwright"] },
+  { n: "Volunteer Platform", y: "2026", c: ["product", "ai"], s: "proto", d: L("Эксперимент с AI-агентами: платформа для волонтёров, 16 модулей и 310 E2E-тестов за неделю.", "An AI-agent experiment: a volunteer platform, 16 modules and 310 E2E tests in a week."), t: ["Laravel 12", "React", "Playwright"] },
   { n: "OHS Books", y: "2026", c: ["client"], s: "live", d: L("Сайт-библиотека учебников: 6 книг, 113 глав, поиск без сервера.", "A textbook library site: 6 books, 113 chapters, serverless search."), t: ["Astro 5", "Pagefind"], href: "https://ohs-books.org" },
   { n: L("Оценка и прогноз задач", "Task estimation & forecasting"), y: "2025–2026", c: ["lead", "ai"], s: "pilot", d: L("LLM ставит Story Points в Jira по формальным критериям, дашборд прогнозирует спринты.", "An LLM assigns story points in Jira using formal criteria; a dashboard forecasts sprints."), t: ["Jira API", "Next.js", "LLM"] },
   { n: L("Автоматизация документации", "Docs automation"), y: "2026", c: ["lead", "ai"], s: "pilot", d: L("Страницы Confluence, релизные документы и отчёты собираются AI-скиллами.", "Confluence pages, release documents and reports are generated by AI skills."), t: ["Claude Code", "Confluence", "Mermaid"] },
@@ -224,7 +224,7 @@ const PROJECTS = [
   { n: L("AI-native ЭДО", "AI-native document workflow"), y: "2026", c: ["ai", "rnd"], s: "proto", d: L("Прототип документооборота, где агент извлекает данные и ведёт документ.", "A prototype where an agent extracts data and drives the document flow."), t: ["FastAPI", "pgvector", "LiteLLM"] },
   { n: L("Агентная обвязка разработки", "Agentic dev workflow"), y: "2026", c: ["ai", "lead"], s: "pilot", d: L("Субагенты, хуки-гейты и автоматический ревьюер pull request для команды.", "Subagents, gate hooks and an automated pull-request reviewer for the team."), t: ["Claude Code", "GitHub", "Routines"] },
   { n: "agentops-infra", y: "2026", c: ["infra", "ai"], s: "proto", d: L("Стек для команды AI-агентов: оркестратор, память на графе знаний, секреты, бэкапы.", "A stack for a team of AI agents: orchestrator, knowledge-graph memory, secrets, backups."), t: ["Docker", "Go", "LightRAG"] },
-  { n: L("Модернизация 16 сервисов", "Modernising 16 services"), y: "2026", c: ["lead", "infra"], s: "done", d: L("Аудит, план перехода PHP 7.2 → 8.x и Laravel 5 → 13, старт первого сервиса.", "Audit, a PHP 7.2 → 8.x and Laravel 5 → 13 plan, first service started."), t: ["PHP", "Laravel", "Semgrep"] },
+  { n: L("Модернизация 16 сервисов", "Modernising 16 services"), y: "2026", c: ["lead", "infra"], s: "done", d: L("Аудит, план перехода PHP 7.2 → 8.x и Laravel 5 → 13, первый сервис обновлён до Laravel 11+.", "Audit, a PHP 7.2 → 8.x and Laravel 5 → 13 plan, first service upgraded to Laravel 11+."), t: ["PHP", "Laravel", "Semgrep"] },
   { n: "Vektra", y: "2026", c: ["quant", "product"], s: "proto", d: L("Аналитика собственных сделок: синхронизация с биржей, правила, 50 метрик входа.", "Analytics for my own trades: exchange sync, rules engine, 50 entry metrics."), t: ["FastAPI", "PostgreSQL", "Next.js"] },
   { n: L("Quant-лаборатория", "Quant research lab"), y: "2026", c: ["quant", "rnd"], s: "rnd", d: L("Пять исследований торговых идей с проверкой вне выборки. Отрицательные результаты записаны честно.", "Five trading-idea studies with out-of-sample checks. Negative results are reported honestly."), t: ["Python", "pandas", "SQLite"] },
   { n: "Trady", y: "2026", c: ["quant", "ai"], s: "proto", d: L("LLM-ассистент трейдера: 25 инструментов через MCP и 15 агентов.", "An LLM trading assistant: 25 tools over MCP and 15 agents."), t: ["Claude", "MCP", "Laravel"] },
