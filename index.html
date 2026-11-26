@@ -9,41 +9,60 @@
 <meta property="og:description" content="12 лет в роли CTO. Команды, платформы на Kubernetes, продукты на LLM и компьютерном зрении.">
 <meta property="og:image" content="https://gurmanalexander.github.io/assets/og.jpg">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0b0c0e">
+<meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314161a'/%3E%3Cpath d='M18 24l10 8-10 8M32 42h14' stroke='%23ffb454' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0c0e; --panel:#111317; --panel2:#15181d; --line:#22262d; --line2:#313640;
-  --ink:#ecebe8; --text:#c9cbd0; --mute:#8d939d; --dim:#5d636d;
-  --amber:#ffb454; --ember:#ff7a59; --green:#5fd38d; --blue:#6cb6ff; --violet:#b79cff; --gray:#9aa0a8;
+  --bg:#0b0c0e; --panel:#111317; --panel2:#171a20; --line:#22262d; --line2:#353a45;
+  --ink:#ecebe8; --text:#c9cbd0; --mute:#959ba5; --dim:#7b828c;
+  --amber:#ffb454; --pri:#ffb454; --pri-h:#ffc577; --pri-ink:#1a1205; --ember:#ff7a59; --green:#5fd38d; --blue:#6cb6ff; --violet:#b79cff; --gray:#9aa0a8;
+  --veil:rgba(11,12,14,.86); --topbg:rgba(11,12,14,.86); --shadow:0 40px 100px rgba(0,0,0,.6); --hl:rgba(255,180,84,.12); color-scheme:dark;
   --sans:'Onest',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
   --wrap:1320px; --r:14px;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){
+  --bg:#f5f4f0; --panel:#ffffff; --panel2:#f0efea; --line:#e3e1da; --line2:#cdcac1;
+  --ink:#14161a; --text:#33373e; --mute:#616873; --dim:#7d848e;
+  --amber:#a8560a; --pri:#f5a524; --pri-h:#e89610; --pri-ink:#1a1205; --ember:#c8502f; --green:#178a4b; --blue:#2466c9; --violet:#6f4bd0; --gray:#7b828c;
+  --veil:rgba(245,244,240,.9); --topbg:rgba(245,244,240,.88); --shadow:0 30px 80px rgba(20,22,26,.18); --hl:rgba(245,165,36,.16); color-scheme:light;
+}}
+:root[data-theme=light]{
+  --bg:#f5f4f0; --panel:#ffffff; --panel2:#f0efea; --line:#e3e1da; --line2:#cdcac1;
+  --ink:#14161a; --text:#33373e; --mute:#616873; --dim:#7d848e;
+  --amber:#a8560a; --pri:#f5a524; --pri-h:#e89610; --pri-ink:#1a1205; --ember:#c8502f; --green:#178a4b; --blue:#2466c9; --violet:#6f4bd0; --gray:#7b828c;
+  --veil:rgba(245,244,240,.9); --topbg:rgba(245,244,240,.88); --shadow:0 30px 80px rgba(20,22,26,.18); --hl:rgba(245,165,36,.16); color-scheme:light;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;background-position:-1px -1px;background-attachment:fixed}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(80% 60% at 50% 0%,transparent,var(--bg) 78%),linear-gradient(rgba(11,12,14,.86),rgba(11,12,14,.86));pointer-events:none;z-index:0}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(80% 60% at 50% 0%,transparent,var(--bg) 78%),linear-gradient(var(--veil),var(--veil));pointer-events:none;z-index:0}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,p,ul,table{margin:0}
-::selection{background:var(--amber);color:#1a1205}
+::selection{background:var(--pri);color:var(--pri-ink)}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--pri);color:var(--pri-ink);padding:10px 14px;border-radius:8px;font-weight:600}
+.skip:focus{top:10px}
 :focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:6px}
 html[data-lang=ru] .en,html[data-lang=en] .ru{display:none!important}
 .wrap{position:relative;z-index:1;max-width:var(--wrap);margin:0 auto;padding:0 24px}
 .mono{font-family:var(--mono)}
 
 /* верхняя панель */
-.top{position:sticky;top:0;z-index:40;background:rgba(11,12,14,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:0;z-index:40;background:var(--topbg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:22px;height:58px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);white-space:nowrap}
 .logo i{width:26px;height:26px;border-radius:7px;background:var(--panel2);border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-style:normal;font-size:12px;color:var(--amber)}
 .top nav{display:flex;gap:4px;margin-left:8px}
 .top nav a{font-family:var(--mono);font-size:12.5px;color:var(--mute);padding:7px 10px;border-radius:7px}
 .top nav a:hover{color:var(--ink);background:var(--panel2)}
+.top nav a[aria-current=true]{color:var(--amber);background:var(--panel2)}
+.top nav a,.btn,.chips button,.tabs button,.kbd,.lang button{transition:background .15s,border-color .15s,color .15s}
 .sp{flex:1}
 .clock{font-family:var(--mono);font-size:12.5px;color:var(--mute);white-space:nowrap}
 .clock b{color:var(--ink);font-weight:500}
@@ -53,6 +72,7 @@ html[data-lang=ru] .en,html[data-lang=en] .ru{display:none!important}
 .lang{display:flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
 .lang button{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;padding:7px 10px;color:var(--mute)}
 .lang button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.kbd svg{width:15px;height:15px;flex:none}
 
 /* панели */
 main{padding:24px 0 40px}
@@ -68,14 +88,15 @@ h2{font-size:clamp(24px,2.6vw,34px);font-weight:600;color:var(--ink);letter-spac
 .sec-h{padding:34px 4px 14px}
 .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;padding:12px 18px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--ink);cursor:pointer;white-space:nowrap}
 .btn:hover{border-color:var(--ink)}
-.btn.pri{background:var(--amber);border-color:var(--amber);color:#1a1205}
-.btn.pri:hover{background:#ffc577}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.btn.pri:hover{background:var(--pri-h);border-color:var(--pri-h)}
+.btn:active{transform:translateY(1px)}
 .btn svg{width:17px;height:17px}
 .tag{font-family:var(--mono);font-size:11.5px;padding:3px 8px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:var(--text);white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .st{font-family:var(--mono);font-size:11.5px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;color:var(--text)}
 .st i{width:7px;height:7px;border-radius:50%;background:var(--gray);flex:none}
-.st.live i{background:var(--green)}.st.ready i{background:var(--amber)}.st.pilot i{background:var(--blue)}.st.proto i,.st.rnd i{background:var(--violet)}
+.st.live i{background:var(--green)}.st.ready i{background:var(--pri)}.st.pilot i{background:var(--blue)}.st.proto i,.st.rnd i{background:var(--violet)}
 
 /* карточка оператора и заголовок */
 .id{grid-column:span 3;display:flex;flex-direction:column}
@@ -89,8 +110,9 @@ h2{font-size:clamp(24px,2.6vw,34px);font-weight:600;color:var(--ink);letter-spac
 .kv .on{color:var(--green)}
 .intro{grid-column:span 9;display:flex;flex-direction:column}
 .intro .pb{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:28px}
-.status{font-family:var(--mono);font-size:12.5px;color:var(--mute);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.status i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(95,211,141,.18)}
+.status{font-family:var(--mono);font-size:12.5px;color:var(--mute);display:flex;align-items:flex-start;gap:9px}
+.status i{flex:none;margin-top:6px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 22%,transparent)}
 .status b{color:var(--ink);font-weight:500}
 h1{font-size:clamp(34px,4.6vw,62px);font-weight:700;color:var(--ink);letter-spacing:-.035em;line-height:1.04;margin-top:16px;text-wrap:balance}
 h1 em{font-style:normal;color:var(--amber)}
@@ -114,6 +136,8 @@ h1 em{font-style:normal;color:var(--amber)}
 .map .n circle{transition:r .15s}
 .map .t text{font-family:var(--mono);font-size:10.5px;fill:var(--mute)}
 .map .t circle{fill:var(--line2)}
+.map .s-live{fill:var(--green)}.map .s-ready{fill:var(--pri)}.map .s-pilot{fill:var(--blue)}.map .s-proto,.map .s-rnd{fill:var(--violet)}.map .s-done{fill:var(--gray)}
+.map .n:focus-visible{outline:none}.map .n:focus-visible circle:last-of-type{stroke:var(--ink);stroke-width:2}
 .map .t.on text{fill:var(--ink)}.map .t.on circle{fill:var(--amber)}
 .map.hov .n:not(.on){opacity:.3}
 .map .c1{font-family:var(--sans);font-size:15px;font-weight:600;fill:var(--ink)}
@@ -168,14 +192,16 @@ h1 em{font-style:normal;color:var(--amber)}
 .dia svg{display:block;width:100%;min-width:680px;height:auto}
 .dia .ed{stroke:var(--line2);stroke-width:1.2;fill:none}
 .dia .ed.dash{stroke-dasharray:4 5}
-.dia .pk{fill:var(--amber)}
+.dia .pk{fill:var(--pri)}
 .dia rect{fill:var(--panel);stroke:var(--line2);stroke-width:1}
 .dia .nl{font-family:var(--sans);font-size:12.5px;font-weight:600;fill:var(--ink)}
 .dia .ns{font-family:var(--mono);font-size:9.8px;fill:var(--mute)}
 .dia .k-client rect{stroke:var(--blue)}.dia .k-data rect{stroke:var(--green)}.dia .k-service rect{stroke:var(--amber)}
 .dia .k-ext rect{stroke-dasharray:4 4}.dia .k-infra rect{stroke:var(--violet)}
 .dia .foot{padding:9px 14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--mute);display:flex;flex-wrap:wrap;gap:6px 18px}
-.dia .foot i{display:inline-block;width:9px;height:9px;border-radius:2px;border:1.5px solid;margin-right:6px;vertical-align:-1px}
+.dia .foot i{display:inline-block;width:9px;height:9px;border-radius:2px;border:1.5px solid var(--gray);margin-right:6px;vertical-align:-1px}
+.dia .foot .l-client{border-color:var(--blue)}.dia .foot .l-service{border-color:var(--amber)}.dia .foot .l-data{border-color:var(--green)}.dia .foot .l-infra{border-color:var(--violet)}.dia .foot .l-ext{border-style:dashed}
+.dia .hint{display:none}
 .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 
 /* таблица проектов */
@@ -183,8 +209,9 @@ h1 em{font-style:normal;color:var(--amber)}
 .search{flex:1 1 240px;display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line2);border-radius:9px;padding:0 12px;font-family:var(--mono);color:var(--mute);font-size:13px}
 .search input{all:unset;flex:1;padding:10px 0;font-family:var(--mono);font-size:13.5px;color:var(--ink);min-width:0}
 .search:focus-within{border-color:var(--amber)}
+.search button{all:unset;cursor:pointer;color:var(--mute);padding:4px 6px;border-radius:6px;font-size:15px;line-height:1}.search button:hover{color:var(--ink);background:var(--panel2)}.search button[hidden]{display:none}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips button{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;padding:7px 11px;border-radius:8px;border:1px solid var(--line2);color:var(--mute)}
+.chips button{all:unset;cursor:pointer;font-family:var(--mono);font-size:12px;padding:9px 12px;border-radius:8px;border:1px solid var(--line2);color:var(--mute)}
 .chips button:hover{color:var(--ink)}
 .chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .tbl{width:100%;border-collapse:collapse}
@@ -193,7 +220,9 @@ h1 em{font-style:normal;color:var(--amber)}
 .tbl td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:15px}
 .tbl tr:last-child td{border-bottom:0}
 .tbl tbody tr:hover{background:var(--panel2)}
-.tbl tr.hl{background:rgba(255,180,84,.1);box-shadow:inset 3px 0 0 var(--amber)}
+.tbl tr.hl{background:var(--hl);box-shadow:inset 3px 0 0 var(--amber)}
+.tbl tr{scroll-margin:40vh}
+.empty button{all:unset;cursor:pointer;color:var(--amber);text-decoration:underline;margin-left:8px}
 .tbl .nm{color:var(--ink);font-weight:600;white-space:nowrap}
 .tbl .nm a:hover{color:var(--amber)}
 .tbl .yr{font-family:var(--mono);font-size:12.5px;color:var(--mute);white-space:nowrap}
@@ -227,7 +256,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 /* терминал */
 .ov{position:fixed;inset:0;z-index:80;background:rgba(5,6,7,.72);backdrop-filter:blur(4px);display:grid;place-items:start center;padding:10vh 16px 16px}
 .ov[hidden]{display:none}
-.term{width:min(100%,760px);max-height:76vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line2);border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden;font-family:var(--mono);font-size:13.5px}
+.term{width:min(100%,760px);max-height:76vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line2);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;font-family:var(--mono);font-size:13.5px}
 .term .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);color:var(--mute);font-size:12px}
 .term .bar i{width:10px;height:10px;border-radius:50%;background:var(--line2)}
 .term .bar button{all:unset;cursor:pointer;margin-left:auto;color:var(--mute);padding:2px 8px;border:1px solid var(--line2);border-radius:6px;font-size:11px}
@@ -242,7 +271,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (max-width:1080px){
   .id{grid-column:span 4}.intro{grid-column:span 8}.map,.side{grid-column:span 12}
-  .top nav,.clock{display:none}
+  .clock{display:none}
+  .top .wrap{flex-wrap:wrap;height:auto;padding-top:9px;row-gap:0}
+  .top nav{order:9;flex:0 0 100%;margin:6px -6px 0;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--line);padding:5px 0}.top nav::-webkit-scrollbar{display:none}
+  html{scroll-padding-top:112px}
   .sys{grid-template-columns:1fr}.tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.tabs button{flex:none}
   .steps{grid-template-columns:repeat(3,1fr)}.stp:nth-child(3){border-right:0}.stp:nth-child(-n+3){border-bottom:1px solid var(--line)}
   .log .w{width:220px}
@@ -252,7 +284,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   .id,.intro{grid-column:span 12}
   .id .pb{display:grid;grid-template-columns:110px 1fr;gap:0 16px;align-items:center}.id h3{margin-top:0}.id .kv{grid-column:1/-1}
   .intro .pb{padding:20px}.kpis{grid-template-columns:1fr 1fr}.kpi:nth-child(2){border-right:0}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .kbd span{display:none}.logo span{display:none}.top .wrap{gap:10px}
+  .kbd span{display:none}.logo span{display:none}.top .wrap{gap:8px}
+  .dia .hint{display:inline;color:var(--amber)}.dia .cap span:last-child{display:none}
+  .top nav a{padding:9px 10px}
   #graph{overflow-x:auto}#graph svg{min-width:600px}
   .gh .row{grid-template-columns:1fr auto}.gh .row a{grid-column:1/-1}
   .log td{display:block;padding:4px 16px;border:0;width:auto!important}.log tr{display:block;padding:14px 0;border-bottom:1px solid var(--line)}.log tr:last-child{border-bottom:0}
@@ -266,6 +300,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
 </head>
 <body>
+<a class="skip" href="#main"><span class="ru">К содержимому</span><span class="en">Skip to content</span></a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#top"><i>AG</i><span class="ru">Александр Гурман</span><span class="en">Alexander Gurman</span></a>
@@ -274,14 +309,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     </nav>
     <span class="sp"></span>
     <span class="clock"><span class="ru">Алматы</span><span class="en">Almaty</span> <b id="clock">--:--</b> UTC+5</span>
-    <button class="kbd" id="openterm" type="button" aria-haspopup="dialog"><span class="ru">Терминал</span><span class="en">Terminal</span><kbd>Ctrl K</kbd></button>
+    <button class="kbd" id="theme" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" stroke="none"/></svg><span id="themel"></span></button>
+    <button class="kbd" id="openterm" type="button" aria-haspopup="dialog"><span class="ru">Терминал</span><span class="en">Terminal</span><kbd id="kk">Ctrl K</kbd></button>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-set="ru" aria-pressed="true">RU</button><button type="button" data-set="en" aria-pressed="false">EN</button>
     </div>
   </div>
 </header>
 
-<main id="top"><div class="wrap">
+<main id="top"><div class="wrap" id="main" tabindex="-1">
   <div class="grid">
     <aside class="panel id">
       <div class="ph"><b>00</b><span class="ru">Профиль</span><span class="en">Profile</span></div>
@@ -346,7 +382,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="sec-h"><h2><span class="ru">Все проекты</span><span class="en">All projects</span></h2><p class="h2sub"><span class="ru">Статус указан честно: что работает в проде, что готово к запуску, а что осталось прототипом или исследованием.</span><span class="en">Statuses are honest: what runs in production, what is ready to launch, and what stayed a prototype or research.</span></p></div>
     <div class="panel">
       <div class="ph"><b>07</b>projects<span class="r" id="cnt"></span></div>
-      <div class="tools"><label class="search"><span>grep</span><input id="q" type="search" autocomplete="off" aria-label="Search projects"></label><div class="chips" id="chips" role="group" aria-label="Filter"></div></div>
+      <div class="tools"><label class="search"><span aria-hidden="true">grep</span><input id="q" type="text" inputmode="search" autocomplete="off" aria-label="Search projects"><button type="button" id="qx" hidden aria-label="Clear">×</button></label><div class="chips" id="chips" role="group" aria-label="Filter"></div></div>
       <table class="tbl"><thead><tr id="thead"></tr></thead><tbody id="rows"></tbody></table>
     </div>
   </section>
